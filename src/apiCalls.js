@@ -1,11 +1,28 @@
 const getReservations = () => {
   return fetch('http://localhost:3001/api/v1/reservations')
-            .then(response => {
-              if(!response.ok){
-                throw new Error (response.message)
-              }
-              return response.json()
-            })            
+    .then(response => {
+      if (!response.ok) {
+        throw new Error(response.message)
+      }
+      return response.json()
+    })
 }
 
-export default getReservations;
+const postReservation = (newRes) => {
+  return fetch('http://localhost:3001/api/v1/reservations', {
+    method: 'POST',
+    body: JSON.stringify(newRes),
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  })
+    .then(response => {
+      console.log(response)
+      if (!response.ok) {
+        throw new Error(response.message)
+      }
+      return response.json()
+    })
+}
+
+export { getReservations, postReservation };

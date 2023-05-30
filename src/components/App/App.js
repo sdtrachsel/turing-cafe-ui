@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css'
-import getReservations from '../../apiCalls';
+import {getReservations, postReservation} from '../../apiCalls';
 import Reservation from '../Reservation/Reservation';
 import Form from '../Form/Form';
 
@@ -13,13 +13,19 @@ class App extends Component {
   }
 
   addReservation = (newRes) =>{
-    this.setState({ reservations: [...this.state.reservations, newRes]})
+    postReservation(newRes)
+      .then(data => {
+        console.log(data)
+        this.setState({ reservations: [...this.state.reservations, data]})     
+      })
+      .catch(err => {
+        console.log(err.message)
+      })
   }
 
   componentDidMount = () => {
     getReservations()
       .then(data =>{
-        console.log(data)
         this.setState({reservations: data})
       })
       .catch(err => {
