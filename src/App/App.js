@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.css'
 import getReservations from '../apiCalls';
+import Reservation from '../Reservation/Reservation';
 
 class App extends Component {
   constructor() {
@@ -13,8 +14,9 @@ class App extends Component {
   componentDidMount = () => {
     getReservations()
       .then(data =>{
-        console.log('data', data)
-        this.setState({reservations: data})
+        this.setState({reservations: data}, () => {
+          console.log(this.state.reservations)
+        })
       })
       .catch(err => {
         console.log(err.message)
@@ -22,6 +24,9 @@ class App extends Component {
 
   }
   render() {
+    const allReservations = this.state.reservations.map(res => {
+      return <Reservation key={res.id} resDetails={res} />
+    })
     return (
       <div className="App">
         <h1 className='app-title'>Turing Cafe Reservations</h1>
@@ -29,7 +34,7 @@ class App extends Component {
 
         </div>
         <div className='resy-container'>
-
+          {allReservations}
         </div>
       </div>
     )

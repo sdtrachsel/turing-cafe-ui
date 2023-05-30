@@ -1,0 +1,8 @@
+.res-card{
+  width: 15%;
+  height: auto;
+  background-color: white;
+  border: teal 5px solid;
+  color: teal;
+  margin: 20px;
+}
