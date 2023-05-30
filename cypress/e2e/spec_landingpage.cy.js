@@ -23,6 +23,6 @@ describe('Landing page', () => {
     cy.get('.res-card').last().find('p').first().contains('Will')
                                            .next().contains('5/15') 
                                            .next().contains('6:30') 
-                                           .next().contains('2')                                       
+                                           .next().contains('2')       
   })
 })
