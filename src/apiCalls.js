@@ -17,7 +17,6 @@ const postReservation = (newRes) => {
     }
   })
     .then(response => {
-      console.log(response)
       if (!response.ok) {
         throw new Error(response.message)
       }
@@ -25,4 +24,18 @@ const postReservation = (newRes) => {
     })
 }
 
-export { getReservations, postReservation };
+const deleteReservation = (resID) => {
+  return fetch(`http://localhost:3001/api/v1/reservations/${resID}`, {
+    method: 'Delete'
+    }
+  )
+    .then(response => {
+      console.log(response)
+      if (!response.ok) {
+        throw new Error(response.message)
+      }
+      return response.json()
+    }) 
+}
+
+export { getReservations, postReservation, deleteReservation };

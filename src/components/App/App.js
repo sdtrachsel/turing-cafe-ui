@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css'
-import {getReservations, postReservation} from '../../apiCalls';
+import {getReservations, postReservation, deleteReservation} from '../../apiCalls';
 import Reservation from '../Reservation/Reservation';
 import Form from '../Form/Form';
 
@@ -23,6 +23,16 @@ class App extends Component {
       })
   }
 
+  cancelReservation = (id) => {
+    deleteReservation(id)
+      .then(data =>{
+        this.setState({reservations: data})
+      })
+      .catch(err => {
+        console.log(err.message)
+      })
+  }
+
   componentDidMount = () => {
     getReservations()
       .then(data =>{
@@ -36,7 +46,7 @@ class App extends Component {
 
   render() {
     const allReservations = this.state.reservations.map(res => {
-      return <Reservation key={res.id} resDetails={res} />
+      return <Reservation key={res.id} id={res.id} resDetails={res} cancelReservation={this.cancelReservation} />
     })
     return (
       <div className="App">
