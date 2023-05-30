@@ -30,7 +30,6 @@ const deleteReservation = (resID) => {
     }
   )
     .then(response => {
-      console.log(response)
       if (!response.ok) {
         throw new Error(response.message)
       }
